@@ -24,5 +24,17 @@ namespace TeduCoreApp.Models
                     }).ToList();
             }
         }
+        public List<EnumModel> ListBillStatus
+        {
+            get
+            {
+                return ((BillStatus[])Enum.GetValues(typeof(BillStatus)))
+                    .Select(c => new EnumModel
+                    {
+                        Value = (int)c,
+                        Name = c.GetDescription()
+                    }).ToList();
+            }
+        }
     }
 }

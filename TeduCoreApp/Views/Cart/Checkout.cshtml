@@ -3,12 +3,64 @@
     ViewData["Title"] = "Checkout";
 }
 @section Scripts {
-    <recaptcha-script validation-message-element-id="recaptchaErrorMessage" />
-
+    @*<recaptcha-script validation-message-element-id="recaptchaErrorMessage" />*@
+    <script>
+        //document.getElementById("billStatusContainer").style.display = "none";
+        $(function () {
+            $("input[name='paymentMethod']").click(function () {
+                if ($("#1").is(":checked")) {
+                    $("#paypal-button-container").show();
+                    $("#submit-form").attr("disabled", true);
+                } else {
+                    $("#paypal-button-container").hide();
+                    $('#submit-form').removeAttr("disabled");
+                }
+            });
+        });
+        $(document).ready(function () {
+            $("#submit-form").click(function () {
+                $("#billStatus-0").prop("checked", true);
+            });
+        });
+        var totalAmount = 0;
+        $.ajax({
+            url: '/Cart/GetCart',
+            type: 'GET',
+            dataType: 'json',
+            async: false,
+            success: function (response) {
+                $.each(response, function (i, item) {
+                    totalAmount += item.Price * item.Quantity;
+                });
+                console.log(totalAmount);
+            }
+        });
+        console.log(totalAmount);
+        paypal.Buttons({
+            createOrder: function (data, actions) {
+                // Set up the transaction
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: totalAmount.toString()
+                        }
+                    }]
+                });
+            },
+            onApprove: function (data, actions) {
+                // Capture the funds from the transaction
+                return actions.order.capture().then(function (details) {
+                    document.getElementById("billStatus-4").checked = true;
+                    document.forms["myform"].submit();
+                    // Show a success message to your buyer
+                    alert('Transaction completed by ' + details.payer.name.given_name);
+                });
+            }
+        }).render('#paypal-button-container');
+    </script>
     @await Html.PartialAsync("_ValidationScriptsPartial")
 }
 <!-- Breadcrumbs -->
-
 <div class="breadcrumbs">
     <div class="container">
         <div class="row">
@@ -53,7 +105,7 @@
                     else
                     {
 
-                        <form action="/checkout.html" method="post">
+                        <form id="myform" action="/checkout.html" method="post">
                             @Html.AntiForgeryToken()
                             <h4 class="checkout-sep">1. Checkout Method</h4>
                             <div class="box-border">
@@ -75,7 +127,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <h4 class="checkout-sep">2. Shipping Information</h4>
                             <div class="box-border">
                                 <ul>
@@ -92,17 +143,14 @@
                                     </li>
                                     <!--/ .row -->
                                     <!--/ .row -->
-
                                     <li class="row">
                                         <div class="col-xs-12">
                                             <label class="required">Address</label>
                                             <input class="input form-control" type="text" asp-for="CustomerAddress">
                                         </div>
                                         <!--/ [col] -->
-
                                     </li>
                                     <!--/ .row -->
-
 
                                     <li class="row">
                                         <div class="col-sm-12">
@@ -110,27 +158,43 @@
                                             <input class="input form-control" type="text" asp-for="CustomerMessage">
                                         </div>
                                         <!--/ [col] -->
-
                                     </li>
                                     <!--/ .row -->
-
 
                                 </ul>
                             </div>
                             <h4 class="checkout-sep">3. Payment Information</h4>
                             <div class="box-border">
-                                <ul>
-                                    @for (int i = 0; i < Model.PaymentMethods.Count; i++)
-                                    {
-                                        <li>
-                                            <label asp-for="@Model.PaymentMethods[i].Value">
-                                                <input type="radio" name="paymentMethod" asp-for="PaymentMethod" value="@Model.PaymentMethods[i].Value">
-                                                @Model.PaymentMethods[i].Name
-                                            </label>
-                                        </li>
-                                    }
-                                </ul>
-                                <button class="button"><i class="fa fa-angle-double-right"></i>&nbsp; <span>Continue</span></button>
+                                <div>
+                                    <ul>
+                                        @for (int i = 0; i < Model.PaymentMethods.Count; i++)
+                                        {
+                                            <li>
+                                                <label asp-for="@Model.PaymentMethods[i].Value">
+                                                    <input id="@Model.PaymentMethods[i].Value" type="radio" name="paymentMethod" asp-for="PaymentMethod" value="@Model.PaymentMethods[i].Value">
+                                                    @Model.PaymentMethods[i].Name
+                                                </label>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+
+                                <div id="billStatusContainer" style="display:none">
+                                    <ul>
+                                        @for (int i = 0; i < Model.ListBillStatus.Count; i++)
+                                        {
+                                            <li>
+                                                <label asp-for="@Model.ListBillStatus[i].Value">
+                                                    <input type="radio" name="billStatus" id="billStatus-@i" asp-for="BillStatus" value="@Model.ListBillStatus[i].Value">
+                                                    @Model.ListBillStatus[i].Name
+                                                </label>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+
+                                <div id="paypal-button-container" style="display:none"></div>
+                                <button id="submit-form" class="button"><i class="fa fa-angle-double-right"></i>&nbsp; <span>Continue</span></button>
                             </div>
                             <h4 class="checkout-sep last">4. Order Review</h4>
                             <div class="box-border">
@@ -162,7 +226,6 @@
 
                                             }
 
-
                                         </tbody>
                                         <tfoot>
                                             <tr>
@@ -172,14 +235,12 @@
                                         </tfoot>
                                     </table>
                                 </div>
-                                <recaptcha /><span class="text-danger" id="recaptchaErrorMessage"></span>
+                                @*<recaptcha /><span class="text-danger" id="recaptchaErrorMessage"></span>*@
                                 <button type="button" class="button" onclick="window.location.href='/cart.html'"><span>Back to cart</span></button>
-
-                                <button type="submit" class="button pull-right"><span>Place Order</span></button>
+                                <button id="submit-form" type="submit" class="button pull-right"><span>Place Order</span></button>
                             </div>
                         </form>
                     }
-
                 </div>
             </div>
         </div>

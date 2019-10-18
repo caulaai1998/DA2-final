@@ -9,7 +9,7 @@
             ignore: [],
             lang: 'en',
             rules: {
-                userName: {
+                email: {
                     required: true
                 },
                 password: {
@@ -20,7 +20,7 @@
         $('#btnLogin').on('click', function (e) {
             if ($('#frmLogin').valid()) {
                 e.preventDefault();
-                var user = $('#txtUserName').val();
+                var user = $('#txtEmail').val();
                 var password = $('#txtPassword').val();
                 login(user, password);
             }

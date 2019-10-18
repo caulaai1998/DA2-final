@@ -7,19 +7,10 @@ namespace TeduCoreApp.Data.Enums
 {
     public enum PaymentMethod
     {
-        [Description("Cash on delivery")]
+        [Description("Trả tiền sau khi nhận hàng")]
         CashOnDelivery,
-        [Description("Onlin Banking")]
-        OnlinBanking,
-        [Description("Payment Gateway")]
-        PaymentGateway,
-        [Description("Visa")]
-        Visa,
-        [Description("Master Card")]
-        MasterCard,
         [Description("PayPal")]
         PayPal,
-        [Description("Atm")]
-        Atm
+      
     }
 }

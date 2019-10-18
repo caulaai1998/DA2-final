@@ -22,7 +22,7 @@ namespace TeduCoreApp.Data.Entities
             string description, string content, bool? homeFlag, bool? hotFlag,
             string tags, string unit, Status status, string seoPageTitle,
             string seoAlias, string seoMetaKeyword,
-            string seoMetaDescription)
+            string seoMetaDescription, int authorId, int publisherId)
         {
             Name = name;
             CategoryId = categoryId;
@@ -41,6 +41,8 @@ namespace TeduCoreApp.Data.Entities
             SeoAlias = seoAlias;
             SeoKeywords = seoMetaKeyword;
             SeoDescription = seoMetaDescription;
+            AuthorId = authorId;
+            PublisherId = publisherId;
             ProductTags = new List<ProductTag>();
 
         }
@@ -50,7 +52,7 @@ namespace TeduCoreApp.Data.Entities
              string description, string content, bool? homeFlag, bool? hotFlag,
              string tags, string unit, Status status, string seoPageTitle,
              string seoAlias, string seoMetaKeyword,
-             string seoMetaDescription)
+             string seoMetaDescription, int authorId, int publisherId)
         {
             Id = id;
             Name = name;
@@ -70,6 +72,8 @@ namespace TeduCoreApp.Data.Entities
             SeoAlias = seoAlias;
             SeoKeywords = seoMetaKeyword;
             SeoDescription = seoMetaDescription;
+            AuthorId = authorId;
+            PublisherId = publisherId;
             ProductTags = new List<ProductTag>();
 
         }
@@ -130,5 +134,16 @@ namespace TeduCoreApp.Data.Entities
         public DateTime DateModified {set;get;}
 
         public Status Status {set;get;}
+        [Required]
+        public int AuthorId { get; set; }
+
+        [ForeignKey("AuthorId")]
+        public virtual Author Author { set; get; }
+
+        [Required]
+        public int PublisherId { get; set; }
+
+        [ForeignKey("PublisherId")]
+        public virtual Publisher Publisher { set; get; }
     }
 }

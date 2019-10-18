@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+@section Styles{
+    <link href="~/lib/jQuery-EasyUI/themes/bootstrap/easyui.css" rel="stylesheet" />
+    <link href="~/lib/jQuery-EasyUI/themes/icon.css" rel="stylesheet" />
+}
+@section Scripts{
+    <script src="~/lib/jQuery-EasyUI/jquery.easyui.min.js"></script>
+    <script src="~/app/controllers/author/index.js" asp-append-version="true"></script>
+    <script>
+var author = new authorController();
+        author.initialize();</script>
+}
+<div class="page-title">
+    <div class="title_left">
+        <h3>Tác giả<small>Danh sách tác giả</small></h3>
+    </div>
+    <div class="title_right">
+        <div class="col-md-2 col-sm-2 col-xs-12 form-group pull-right">
+            <button id="btnCreate" class="btn btn-primary" style="width:50px; text-align:center;"><i class="icon_plus_alt2"></i></button>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="panel">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_content">
+                <ul id="treeAuthor"></ul>
+                <div id="contextMenu" class="easyui-menu" style="width:120px;">
+                    <div id="btnEdit" data-options="iconCls:'icon-edit'">Sửa</div>
+                    <div id="btnDelete" data-options="iconCls:'icon-remove'">Xoá</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<partial name="_AddEditModal.cshtml" />

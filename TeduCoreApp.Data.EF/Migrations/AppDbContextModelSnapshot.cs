@@ -280,6 +280,24 @@ namespace TeduCoreApp.Data.EF.Migrations
                     b.ToTable("AppUsers");
                 });
 
+            modelBuilder.Entity("TeduCoreApp.Data.Entities.Author", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AuthorName");
+
+                    b.Property<int?>("ParentId");
+
+                    b.Property<int>("SortOrder");
+
+                    b.Property<int>("Status");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Authors");
+                });
+
             modelBuilder.Entity("TeduCoreApp.Data.Entities.Bill", b =>
                 {
                     b.Property<int>("Id")
@@ -614,6 +632,8 @@ namespace TeduCoreApp.Data.EF.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("AuthorId");
+
                     b.Property<int>("CategoryId");
 
                     b.Property<string>("Content");
@@ -642,6 +662,8 @@ namespace TeduCoreApp.Data.EF.Migrations
 
                     b.Property<decimal?>("PromotionPrice");
 
+                    b.Property<int>("PublisherId");
+
                     b.Property<string>("SeoAlias")
                         .HasColumnType("varchar(255)")
                         .HasMaxLength(255);
@@ -666,7 +688,11 @@ namespace TeduCoreApp.Data.EF.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AuthorId");
+
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("PublisherId");
 
                     b.ToTable("Products");
                 });
@@ -772,6 +798,24 @@ namespace TeduCoreApp.Data.EF.Migrations
                     b.HasIndex("TagId");
 
                     b.ToTable("ProductTags");
+                });
+
+            modelBuilder.Entity("TeduCoreApp.Data.Entities.Publisher", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("NamePublisher");
+
+                    b.Property<int?>("ParentId");
+
+                    b.Property<int>("SortOrder");
+
+                    b.Property<int>("Status");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Publishers");
                 });
 
             modelBuilder.Entity("TeduCoreApp.Data.Entities.Size", b =>
@@ -976,9 +1020,19 @@ namespace TeduCoreApp.Data.EF.Migrations
 
             modelBuilder.Entity("TeduCoreApp.Data.Entities.Product", b =>
                 {
+                    b.HasOne("TeduCoreApp.Data.Entities.Author", "Author")
+                        .WithMany("Products")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("TeduCoreApp.Data.Entities.ProductCategory", "ProductCategory")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TeduCoreApp.Data.Entities.Publisher", "Publisher")
+                        .WithMany("Products")
+                        .HasForeignKey("PublisherId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

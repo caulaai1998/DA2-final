@@ -119,7 +119,8 @@ namespace TeduCoreApp
             services.AddTransient<ISystemConfigRepository, SystemConfigRepository>();
 
             services.AddTransient<IFooterRepository, FooterRepository>();
-
+            services.AddTransient<IAuthorRepository, AuthorRepository>();
+            services.AddTransient<IPublisherCompanyRepository, PublisherCompanyRepository>();
 
             //Serrvices
             services.AddTransient<IProductCategoryService, ProductCategoryService>();
@@ -132,7 +133,8 @@ namespace TeduCoreApp
             services.AddTransient<ICommonService, CommonService>();
             services.AddTransient<IFeedbackService, FeedbackService>();
             services.AddTransient<IContactService, ContactService>();
-
+            services.AddTransient<IAuthorService, AuthorService>();
+            services.AddTransient<IPublisherService, PublisherService>();
             services.AddTransient<IAuthorizationHandler, BaseResourceAuthorizationHandler>();
 
 

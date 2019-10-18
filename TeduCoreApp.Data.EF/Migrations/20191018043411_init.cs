@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace TeduCoreApp.Data.EF.Migrations
 {
-    public partial class initial : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -136,6 +136,22 @@ namespace TeduCoreApp.Data.EF.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AppUserTokens", x => x.UserId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Authors",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AuthorName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ParentId = table.Column<int>(type: "int", nullable: true),
+                    SortOrder = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Authors", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -304,6 +320,22 @@ namespace TeduCoreApp.Data.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Publishers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    NamePublisher = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ParentId = table.Column<int>(type: "int", nullable: true),
+                    SortOrder = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Publishers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Sizes",
                 columns: table => new
                 {
@@ -417,7 +449,7 @@ namespace TeduCoreApp.Data.EF.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     BillStatus = table.Column<int>(type: "int", nullable: false),
                     CustomerAddress = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
-                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CustomerMessage = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     CustomerMobile = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CustomerName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
@@ -434,7 +466,7 @@ namespace TeduCoreApp.Data.EF.Migrations
                         column: x => x.CustomerId,
                         principalTable: "AppUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -473,6 +505,7 @@ namespace TeduCoreApp.Data.EF.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AuthorId = table.Column<int>(type: "int", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -485,6 +518,7 @@ namespace TeduCoreApp.Data.EF.Migrations
                     OriginalPrice = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
                     PromotionPrice = table.Column<decimal>(type: "decimal(18, 2)", nullable: true),
+                    PublisherId = table.Column<int>(type: "int", nullable: false),
                     SeoAlias = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
                     SeoDescription = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     SeoKeywords = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
@@ -498,9 +532,21 @@ namespace TeduCoreApp.Data.EF.Migrations
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Products_Authors_AuthorId",
+                        column: x => x.AuthorId,
+                        principalTable: "Authors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Products_ProductCategories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "ProductCategories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Products_Publishers_PublisherId",
+                        column: x => x.PublisherId,
+                        principalTable: "Publishers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -810,9 +856,19 @@ namespace TeduCoreApp.Data.EF.Migrations
                 column: "SizeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Products_AuthorId",
+                table: "Products",
+                column: "AuthorId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",
                 table: "Products",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_PublisherId",
+                table: "Products",
+                column: "PublisherId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductTags_ProductId",
@@ -932,7 +988,13 @@ namespace TeduCoreApp.Data.EF.Migrations
                 name: "AppUsers");
 
             migrationBuilder.DropTable(
+                name: "Authors");
+
+            migrationBuilder.DropTable(
                 name: "ProductCategories");
+
+            migrationBuilder.DropTable(
+                name: "Publishers");
         }
     }
 }

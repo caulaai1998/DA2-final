@@ -80,7 +80,8 @@ namespace TeduCoreApp.Controllers
                     var billViewModel = new BillViewModel()
                     {
                         CustomerMobile = model.CustomerMobile,
-                        BillStatus = BillStatus.New,
+                        PaymentMethod = model.PaymentMethod,
+                        BillStatus = model.BillStatus,
                         CustomerAddress = model.CustomerAddress,
                         CustomerName = model.CustomerName,
                         CustomerMessage = model.CustomerMessage,
