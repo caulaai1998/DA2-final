@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.1.1" />
+    <PackageReference Include="EPPlus.Core" Version="1.5.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TeduCoreApp.Data.EF\TeduCoreApp.Data.EF.csproj" />
+    <ProjectReference Include="..\TeduCoreApp.Data\TeduCoreApp.Data.csproj" />
+    <ProjectReference Include="..\TeduCoreApp.Utilities\TeduCoreApp.Utilities.csproj" />
+  </ItemGroup>
+
+</Project>
