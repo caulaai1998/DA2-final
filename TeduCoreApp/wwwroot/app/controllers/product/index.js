@@ -8,6 +8,7 @@
         loadData();
         registerEvents();
         registerControls();
+
         quantityManagement.initialize();
         imageManagement.initialize();
         wholePriceManagement.initialize();
@@ -22,6 +23,8 @@
             rules: {
                 txtNameM: { required: true },
                 ddlCategoryIdM: { required: true },
+                ddlAuthorIdM: { required: true },
+                ddlPublisherIdM: { required: true },
                 txtPriceM: {
                     required: true,
                     number: true
@@ -48,7 +51,10 @@
         $("#btnCreate").on('click', function () {
             resetFormMaintainance();
             initTreeDropDownCategory();
+            initTreeDropDownAuthor();
+            initTreeDropDownPublisher();
             $('#modal-add-edit').modal('show');
+
 
         });
 
@@ -94,8 +100,11 @@
                 success: function (response) {
                     var data = response;
                     $('#hidIdM').val(data.Id);
+                    $('#hidDateCreated').val(data.DateCreated)
                     $('#txtNameM').val(data.Name);
                     initTreeDropDownCategory(data.CategoryId);
+                    initTreeDropDownAuthor(data.AuthorId);
+                    initTreeDropDownPublisher(data.PublisherId);
 
                     $('#txtDescM').val(data.Description);
                     $('#txtUnitM').val(data.Unit);
@@ -104,7 +113,7 @@
                     $('#txtOriginalPriceM').val(data.OriginalPrice);
                     $('#txtPromotionPriceM').val(data.PromotionPrice);
 
-                    // $('#txtImageM').val(data.ThumbnailImage);
+                    $('#txtImage').val(data.Image);
 
                     $('#txtTagM').val(data.Tags);
                     $('#txtMetakeywordM').val(data.SeoKeywords);
@@ -112,7 +121,7 @@
                     $('#txtSeoPageTitleM').val(data.SeoPageTitle);
                     $('#txtSeoAliasM').val(data.SeoAlias);
 
-                    CKEDITOR.instances.txtContent.setData(data.Content);
+                    try { CKEDITOR.instances.txtContent.setData(data.Content) } catch (ex) { };
                     $('#ckStatusM').prop('checked', data.Status == 1);
                     $('#ckHotM').prop('checked', data.HotFlag);
                     $('#ckShowHomeM').prop('checked', data.HomeFlag);
@@ -158,7 +167,10 @@
                 e.preventDefault();
                 var id = $('#hidIdM').val();
                 var name = $('#txtNameM').val();
+                var dateCreated = $('#hidDateCreated').val();
                 var categoryId = $('#ddlCategoryIdM').combotree('getValue');
+                var authorId = $('#ddlAuthorIdM').combotree('getValue');
+                var publisherId = $('#ddlPublisherIdM').combotree('getValue');
 
                 var description = $('#txtDescM').val();
                 var unit = $('#txtUnitM').val();
@@ -167,7 +179,7 @@
                 var originalPrice = $('#txtOriginalPriceM').val();
                 var promotionPrice = $('#txtPromotionPriceM').val();
 
-                //var image = $('#txtImageM').val();
+                var image = $('#txtImage').val();
 
                 var tags = $('#txtTagM').val();
                 var seoKeyword = $('#txtMetakeywordM').val();
@@ -175,7 +187,7 @@
                 var seoPageTitle = $('#txtSeoPageTitleM').val();
                 var seoAlias = $('#txtSeoAliasM').val();
 
-                var content = CKEDITOR.instances.txtContent.getData();
+                try { var content = CKEDITOR.instances.txtContent.getData() } catch (ex) { };
                 var status = $('#ckStatusM').prop('checked') == true ? 1 : 0;
                 var hot = $('#ckHotM').prop('checked');
                 var showHome = $('#ckShowHomeM').prop('checked');
@@ -186,8 +198,11 @@
                     data: {
                         Id: id,
                         Name: name,
+                        DateCreated: dateCreated,
                         CategoryId: categoryId,
-                        Image: '',
+                        AuthorId: authorId,
+                        PublisherId: publisherId,
+                        Image: image,
                         Price: price,
                         OriginalPrice: originalPrice,
                         PromotionPrice: promotionPrice,
@@ -226,6 +241,7 @@
 
         $('#btn-import').on('click', function () {
             initTreeDropDownCategory();
+            initTreeDropDownAuthor();
             $('#modal-import-excel').modal('show');
         });
 
@@ -276,7 +292,7 @@
     }
 
     function registerControls() {
-        CKEDITOR.replace('txtContent', {});
+        try { CKEDITOR.replace('txtContent', {}) } catch{ };
 
         //Fix: cannot click on element ck in modal
         $.fn.modal.Constructor.prototype.enforceFocus = function () {
@@ -296,8 +312,69 @@
 
     }
 
+    function initTreeDropDownAuthor(selectedId) {
+        $.ajax({
+            url: "/Admin/Author/GetAll",
+            type: 'GET',
+            dataType: 'json',
+            async: false,
+            success: function (response) {
+                var data = [];
+                $.each(response, function (i, item) {
+                    data.push({
+                        id: item.Id,
+                        text: item.AuthorName,
+                        parentId: item.ParentId,
+                        sortOrder: item.SortOrder
+                    });
+                });
+                var arr = tedu.unflattern(data);
+                $('#ddlAuthorIdM').combotree({
+                    data: arr
+                });
 
-   
+                $('#ddlAuthorIdImportExcel').combotree({
+                    data: arr
+                });
+                if (selectedId != undefined) {
+                    $('#ddlAuthorIdM').combotree('setValue', selectedId);
+                }
+            }
+        });
+    }
+
+
+
+    function initTreeDropDownPublisher(selectedId) {
+        $.ajax({
+            url: "/Admin/Publisher/GetAll",
+            type: 'GET',
+            dataType: 'json',
+            async: false,
+            success: function (response) {
+                var data = [];
+                $.each(response, function (i, item) {
+                    data.push({
+                        id: item.Id,
+                        text: item.NamePublisher,
+                        parentId: item.ParentId,
+                        sortOrder: item.SortOrder
+                    });
+                });
+                var arr = tedu.unflattern(data);
+                $('#ddlPublisherIdM').combotree({
+                    data: arr
+                });
+
+                $('#ddlPublisherIdImportExcel').combotree({
+                    data: arr
+                });
+                if (selectedId != undefined) {
+                    $('#ddlPublisherIdM').combotree('setValue', selectedId);
+                }
+            }
+        });
+    }
 
     function initTreeDropDownCategory(selectedId) {
         $.ajax({
@@ -334,6 +411,8 @@
         $('#hidIdM').val(0);
         $('#txtNameM').val('');
         initTreeDropDownCategory('');
+        initTreeDropDownAuthor();
+        initTreeDropDownPublisher();
 
         $('#txtDescM').val('');
         $('#txtUnitM').val('');
@@ -342,7 +421,7 @@
         $('#txtOriginalPriceM').val('');
         $('#txtPromotionPriceM').val('');
 
-        //$('#txtImageM').val('');
+        $('#txtImage').val('');
 
         $('#txtTagM').val('');
         $('#txtMetakeywordM').val('');
@@ -350,7 +429,12 @@
         $('#txtSeoPageTitleM').val('');
         $('#txtSeoAliasM').val('');
 
-        //CKEDITOR.instances.txtContentM.setData('');
+        try {
+            CKEDITOR.instances.txtContentM.setData('')
+        }
+        catch (err) {
+
+        };
         $('#ckStatusM').prop('checked', true);
         $('#ckHotM').prop('checked', false);
         $('#ckShowHomeM').prop('checked', false);
@@ -397,19 +481,20 @@
                         Name: item.Name,
                         Image: item.Image == null ? '<img src="/admin-side/images/user.png" width=25' : '<img src="' + item.Image + '" width=25 />',
                         CategoryName: item.ProductCategory.Name,
+                        AuthorName: item.Author.AuthorName,
+                        NamePublisher: item.Publisher.NamePublisher,
                         Price: tedu.formatNumber(item.Price, 0),
-                        CreatedDate: tedu.dateTimeFormatJson(item.DateCreated),
+                        CreatedDate: moment(item.DateCreated).format("DD/MM/YYYY"),
                         Status: tedu.getStatus(item.Status)
                     });
-                    
+                    $('#lblTotalRecords').text(response.RowCount);
+                    if (render != '') {
+                        $('#tbl-content').html(render);
+                    }
+                    wrapPaging(response.RowCount, function () {
+                        loadData();
+                    }, isPageChanged);
                 });
-                $('#lblTotalRecords').text(response.RowCount);
-                if (render != '') {
-                    $('#tbl-content').html(render);
-                }
-                wrapPaging(response.RowCount, function () {
-                    loadData();
-                }, isPageChanged);
             },
             error: function (status) {
                 console.log(status);

@@ -13,22 +13,25 @@ namespace TeduCoreApp.Data.Entities
     [Table("Products")]
     public class Product : DomainEntity<int>, ISwitchable, IDateTracking, IHasSeoMetaData
     {
-        public Product() {
+        public Product()
+        {
             ProductTags = new List<ProductTag>();
         }
 
-        public Product(string name, int categoryId, string thumbnailImage,
+        public Product(string name, int categoryId, int authorId, int publisherId, string Image,
             decimal price, decimal originalPrice, decimal? promotionPrice,
             string description, string content, bool? homeFlag, bool? hotFlag,
             string tags, string unit, Status status, string seoPageTitle,
             string seoAlias, string seoMetaKeyword,
-            string seoMetaDescription, int authorId, int publisherId)
+            string seoMetaDescription)
         {
             Name = name;
             CategoryId = categoryId;
-            Image = thumbnailImage;
+            this.Image = Image;
             Price = price;
             OriginalPrice = originalPrice;
+            AuthorId = authorId;
+            PublisherId = publisherId;
             PromotionPrice = promotionPrice;
             Description = description;
             Content = content;
@@ -40,25 +43,26 @@ namespace TeduCoreApp.Data.Entities
             SeoPageTitle = seoPageTitle;
             SeoAlias = seoAlias;
             SeoKeywords = seoMetaKeyword;
+            DateCreated = DateTime.Now;
             SeoDescription = seoMetaDescription;
-            AuthorId = authorId;
-            PublisherId = publisherId;
             ProductTags = new List<ProductTag>();
 
         }
 
-        public Product(int id, string name, int categoryId, string thumbnailImage,
+        public Product(int id, string name, int categoryId, int authorId, int publisherId, string Image,
              decimal price, decimal originalPrice, decimal? promotionPrice,
              string description, string content, bool? homeFlag, bool? hotFlag,
              string tags, string unit, Status status, string seoPageTitle,
              string seoAlias, string seoMetaKeyword,
-             string seoMetaDescription, int authorId, int publisherId)
+             string seoMetaDescription, DateTime dateCreated)
         {
             Id = id;
             Name = name;
             CategoryId = categoryId;
-            Image = thumbnailImage;
+            this.Image = Image;
             Price = price;
+            AuthorId = authorId;
+            PublisherId = publisherId;
             OriginalPrice = originalPrice;
             PromotionPrice = promotionPrice;
             Description = description;
@@ -72,8 +76,8 @@ namespace TeduCoreApp.Data.Entities
             SeoAlias = seoAlias;
             SeoKeywords = seoMetaKeyword;
             SeoDescription = seoMetaDescription;
-            AuthorId = authorId;
-            PublisherId = publisherId;
+            DateCreated = dateCreated;
+            DateModified = DateTime.Now;
             ProductTags = new List<ProductTag>();
 
         }
@@ -116,34 +120,36 @@ namespace TeduCoreApp.Data.Entities
         [ForeignKey("CategoryId")]
         public virtual ProductCategory ProductCategory { set; get; }
 
-        public virtual ICollection<ProductTag> ProductTags { set; get; }
 
-        public string SeoPageTitle {set;get;}
-
-        [Column(TypeName ="varchar(255)")]
-        [StringLength(255)]
-        public string SeoAlias {set;get;}
-
-        [StringLength(255)]
-        public string SeoKeywords {set;get;}
-
-        [StringLength(255)]
-        public string SeoDescription {set;get;}
-
-        public DateTime DateCreated {set;get;}
-        public DateTime DateModified {set;get;}
-
-        public Status Status {set;get;}
         [Required]
         public int AuthorId { get; set; }
 
         [ForeignKey("AuthorId")]
-        public virtual Author Author { set; get; }
+        public virtual Author Author { get; set; }
 
         [Required]
         public int PublisherId { get; set; }
 
         [ForeignKey("PublisherId")]
-        public virtual Publisher Publisher { set; get; }
+        public virtual Publisher Publisher { get; set; }
+
+
+        public virtual ICollection<ProductTag> ProductTags { set; get; }
+
+        public string SeoPageTitle { set; get; }
+
+        [StringLength(255)]
+        public string SeoAlias { set; get; }
+
+        [StringLength(255)]
+        public string SeoKeywords { set; get; }
+
+        [StringLength(255)]
+        public string SeoDescription { set; get; }
+
+        public DateTime DateCreated { set; get; }
+        public DateTime DateModified { set; get; }
+
+        public Status Status { set; get; }
     }
 }

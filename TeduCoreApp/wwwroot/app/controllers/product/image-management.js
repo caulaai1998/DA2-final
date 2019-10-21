@@ -1,4 +1,4 @@
-﻿var ImageManagement = function () {
+﻿var ImageManagement = function (parent) {
     var self = this;
     var parent = parent;
 
@@ -13,7 +13,7 @@
             e.preventDefault();
             var that = $(this).data('id');
             $('#hidId').val(that);
-            clearFileInput($("#fileImage"));
+            clearFileInput(document.getElementById("fileImage"));
             loadImages();
             $('#modal-image-manage').modal('show');
         });
@@ -35,14 +35,16 @@
                 processData: false,
                 data: data,
                 success: function (path) {
-                    clearFileInput($("#fileImage"));
+                    clearFileInput(document.getElementById("fileImage"));
                     images.push(path);
-                    $('#image-list').append('<div class="col-md-3"><img width="100"  data-path="' + path + '" src="' + path + '"></div>');
-                    tedu.notify('Đã tải ảnh lên thành công!', 'success');
+                    //$('#image-list').append('<div class="col-lg-3 col-md-6"> <div class = "card"> <div class="el-card-item"> <div class="el-card-avatar el-overlay-1"> <img width="100"  data-path="' + path + '" src="' + path + '" /> </div> </div> </div > </div >');
+                    $('#image-list').append('<div class="col-md-3"><img width="100" data-path="' + path + '" src="' + path + '"><br/><a href="#" class="btn-delete-image">Xóa</a></div>');
+
+                    onlineshop.notify('Đã tải ảnh lên thành công!', 'success');
 
                 },
                 error: function () {
-                    tedu.notify('There was error uploading files!', 'error');
+                    onlineshop.notify('There was error uploading files!', 'error');
                 }
             });
         });
@@ -56,14 +58,14 @@
                 url: '/admin/Product/SaveImages',
                 data: {
                     productId: $('#hidId').val(),
-                    images: images
+                    images: imageList
                 },
                 type: 'post',
                 dataType: 'json',
                 success: function (response) {
                     $('#modal-image-manage').modal('hide');
                     $('#image-list').html('');
-                    clearFileInput($("#fileImage"));
+                    clearFileInput(document.getElementById("fileImage"));
                 }
             });
         });
@@ -79,20 +81,20 @@
             success: function (response) {
                 var render = '';
                 $.each(response, function (i, item) {
-                    render += '<div class="col-md-3"><img width="100" src="' + item.Path + '"><br/><a href="#" class="btn-delete-image">Xóa</a></div>'
+                    render += '<div class="col-md-3"><img width="100" data-path="' + item.Path + '" src="' + item.Path + '"><br/><a href="#" class="btn-delete-image">Xóa</a></div>'
                 });
                 $('#image-list').html(render);
-                clearFileInput();
+                clearFileInput(document.getElementById("fileImage"));
             }
         });
     }
 
     function clearFileInput(ctrl) {
-        //try {
-        //    ctrl.value = null;
-        //} catch (ex) { }
-        //if (ctrl.value) {
-        //    ctrl.parentNode.replaceChild(ctrl.cloneNode(true), ctrl);
-        //}
+        try {
+            ctrl.value = null;
+        } catch (ex) { }
+        if (ctrl.value) {
+            ctrl.parentNode.replaceChild(ctrl.cloneNode(true), ctrl);
+        }
     }
 }

@@ -21,7 +21,7 @@ namespace TeduCoreApp.Areas.Admin.Controllers
         private IProductCategoryService _productCategoryService;
         private readonly IHostingEnvironment _hostingEnvironment;
 
-        public ProductController(IProductService productService, 
+        public ProductController(IProductService productService,
             IProductCategoryService productCategoryService,
             IHostingEnvironment hostingEnvironment)
         {
@@ -69,13 +69,13 @@ namespace TeduCoreApp.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult SaveEntity(ProductViewModel productVm)
         {
-            if (!ModelState.IsValid)
-            {
-                IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
-                return new BadRequestObjectResult(allErrors);
-            }
-            else
-            {
+            //if (!ModelState.IsValid)
+            //{
+            //    IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+            //    return new BadRequestObjectResult(allErrors);
+            //}
+            //else
+            //{
                 productVm.SeoAlias = TextHelper.ToUnsignString(productVm.Name);
                 if (productVm.Id == 0)
                 {
@@ -87,7 +87,7 @@ namespace TeduCoreApp.Areas.Admin.Controllers
                 }
                 _productService.Save();
                 return new OkObjectResult(productVm);
-            }
+            //}
         }
 
         [HttpPost]

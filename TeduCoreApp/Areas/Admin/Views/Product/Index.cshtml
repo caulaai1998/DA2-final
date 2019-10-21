@@ -38,9 +38,6 @@
         </div>
         <div class="col-md-6 col-sm-12  form-group pull-right">
             <button id="btnCreate" class="btn btn-success">Create</button>
-            <a class="btn btn-danger" href="~/templates/ProductImportTemplate.xlsx">Template</a>
-            <button class="btn btn-primary" id="btn-import" type="button"><i class="fa fa-file-excel-o"></i></button>
-            <button class="btn btn-default" id="btn-export" type="button"><i class="fa fa-forward"></i></button>
 
         </div>
     </div>
@@ -54,14 +51,15 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                           
-                            <th>Name</th>
-                            <th>Category</th>
-                            <th>Price</th>
-                            <th>Image</th>
-                            <th>Created Date</th>
-                            <th>Status</th>
-                            <th width="20%">#</th>
+                            <th>Tên sách</th>
+                            <th>Thể loại</th>
+                            <th>Tác giả</th>
+                            <th>Nhà xuất bản</th>
+                            <th>Giá</th>
+                            <th>Hình</th>
+                            <th>Ngày tạo</th>
+                            <th>Trạng thái</th>
+                            <th width="20%">Function</th>
                         </tr>
                     </thead>
                     <tbody id="tbl-content"></tbody>
@@ -93,9 +91,10 @@
 </div>
 <script id="table-template" type="x-tmpl-mustache">
     <tr>
-        
         <td>{{Name}}</td>
         <td>{{CategoryName}}</td>
+        <td>{{AuthorName}}</td>
+        <td>{{NamePublisher}}</td>
         <td>{{Price}}</td>
         <td>{{{Image}}}</td>
         <td>{{CreatedDate}}</td>
@@ -104,8 +103,7 @@
             <a class="btn  btn-sm btn-edit" data-id="{{Id}}"><i class="fa fa-pencil"></i></a>
             <a class="btn  btn-sm btn-delete" data-id="{{Id}}"><i class="fa fa-trash"></i></a>
             <a href="#" data-id="{{Id}}" class="btn btn-xs btn-images"><i class="fa fa-image"></i></a>
-            <a href="#" data-id="{{Id}}" class="btn btn-xs btn-quantity"><i class="fa fa-hourglass-start"></i></a>
-            <a href="#" data-id="{{Id}}" class="btn btn-xs btn-whole-price"><i class="fa fa-money"></i></a>
+            
         </th>
     </tr>
 </script>

@@ -9,6 +9,8 @@
 <!-- Breadcrumbs -->
 @section Scripts{
     <script src="~/client-app/controllers/product/details.js"></script>
+     <script src="~/client-side/js/cloud-zoom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.2.0/jquery.flexslider.js"></script>
     <script>
         var productObj = new ProductDetailController();
         productObj.initialize();
@@ -77,28 +79,14 @@
 
                         </div>
                         <div class="ratings">
-                            <div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div>
-                            <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Your Review</a> </p>
+                        
                             <p class="availability @(product.Status==TeduCoreApp.Data.Enums.Status.Active?"in-stock":"out-of-stock") pull-right">Availability: <span>@product.Status</span></p>
                         </div>
                         <div class="short-description">
                             <h2>Quick Overview</h2>
                             @product.Description
                         </div>
-                        <div class="product-color-size-area">
-                            <div class="color-area">
-                                <h2 class="saider-bar-title">Color</h2>
-                                <div class="color">
-                                    <select asp-items="Model.Colors" id="ddlColorId"></select>
-                                </div>
-                            </div>
-                            <div class="size-area">
-                                <h2 class="saider-bar-title">Size</h2>
-                                <div class="size">
-                                    <select asp-items="Model.Sizes" id="ddlSizeId"></select>
-                                </div>
-                            </div>
-                        </div>
+
                         <div class="product-variation">
                             <form action="#" method="post">
                                 <div class="cart-plus-minus">
@@ -112,13 +100,7 @@
                                 <button class="button pro-add-to-cart" id="btnAddToCart" data-id="@Model.Product.Id" title="Add to Cart" type="button"><span><i class="fa fa-shopping-basket"></i> Add to Cart</span></button>
                             </form>
                         </div>
-                        <div class="product-cart-option">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-heart-o"></i><span>Add to Wishlist</span></a></li>
-                                <li><a href="#"><i class="fa fa-link"></i><span>Add to Compare</span></a></li>
-                                <li><a href="#"><i class="fa fa-envelope"></i><span>Email to a Friend</span></a></li>
-                            </ul>
-                        </div>
+                       
                         @if (Model.Tags.Count > 0)
                         {
                             <div class="pro-tags">
