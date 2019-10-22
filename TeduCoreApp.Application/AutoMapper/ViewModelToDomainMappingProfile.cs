@@ -24,7 +24,7 @@ namespace TeduCoreApp.Application.AutoMapper
            c.SeoPageTitle, c.SeoAlias, c.SeoKeywords, c.SeoDescription));
 
             CreateMap<AppUserViewModel, AppUser>()
-            .ConstructUsing(c => new AppUser(c.Id.GetValueOrDefault(Guid.Empty), c.FullName, c.UserName, 
+            .ConstructUsing(c => new AppUser(c.Id.GetValueOrDefault(Guid.Empty), c.FullName,c.Address, c.UserName, 
             c.Email, c.PhoneNumber, c.Avatar, c.Status));
 
             CreateMap<PermissionViewModel, Permission>()

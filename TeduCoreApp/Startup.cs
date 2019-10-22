@@ -25,6 +25,8 @@ using TeduCoreApp.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using TeduCoreApp.Authorization;
 using PaulMiami.AspNetCore.Mvc.Recaptcha;
+using TeduCoreApp.Application.Dapper.Interfaces;
+using TeduCoreApp.Application.Dapper.Implementation;
 
 namespace TeduCoreApp
 {
@@ -114,6 +116,9 @@ namespace TeduCoreApp
             services.AddTransient<IContactRepository, ContactRepository>();
             services.AddTransient<IBlogRepository, BlogRepository>();
 
+
+
+
             services.AddTransient<IBlogTagRepository, BlogTagRepository>();
             services.AddTransient<ISlideRepository, SlideRepository>();
             services.AddTransient<ISystemConfigRepository, SystemConfigRepository>();
@@ -137,6 +142,7 @@ namespace TeduCoreApp
             services.AddTransient<IPublisherService, PublisherService>();
             services.AddTransient<IAuthorizationHandler, BaseResourceAuthorizationHandler>();
 
+            services.AddTransient<IReportService, ReportService>();
 
         }
 
