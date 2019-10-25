@@ -98,6 +98,7 @@ namespace TeduCoreApp.Data.EF.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AccessFailedCount = table.Column<int>(type: "int", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Avatar = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Balance = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
                     BirthDay = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -519,7 +520,7 @@ namespace TeduCoreApp.Data.EF.Migrations
                     Price = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
                     PromotionPrice = table.Column<decimal>(type: "decimal(18, 2)", nullable: true),
                     PublisherId = table.Column<int>(type: "int", nullable: false),
-                    SeoAlias = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    SeoAlias = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     SeoDescription = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     SeoKeywords = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     SeoPageTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),

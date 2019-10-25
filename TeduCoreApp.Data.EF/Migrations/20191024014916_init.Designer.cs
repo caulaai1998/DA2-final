@@ -12,7 +12,7 @@ using TeduCoreApp.Data.Enums;
 namespace TeduCoreApp.Data.EF.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20191018043411_init")]
+    [Migration("20191024014916_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -235,6 +235,8 @@ namespace TeduCoreApp.Data.EF.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("Address");
 
                     b.Property<string>("Avatar");
 
@@ -666,7 +668,6 @@ namespace TeduCoreApp.Data.EF.Migrations
                     b.Property<int>("PublisherId");
 
                     b.Property<string>("SeoAlias")
-                        .HasColumnType("varchar(255)")
                         .HasMaxLength(255);
 
                     b.Property<string>("SeoDescription")

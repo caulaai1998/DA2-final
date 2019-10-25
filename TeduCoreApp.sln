@@ -23,7 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Domain", "3 - Domain", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Infrastructure", "4 - Infrastructure", "{60385C7C-CA9C-475E-9325-51229A8CC75A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeduCoreApp.Application.Dapper", "TeduCoreApp.Application.Dapper\TeduCoreApp.Application.Dapper.csproj", "{0E8FBD46-8052-4E6D-8920-B0331CB0CAF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeduCoreApp.Application.Dapper", "TeduCoreApp.Application.Dapper\TeduCoreApp.Application.Dapper.csproj", "{0E8FBD46-8052-4E6D-8920-B0331CB0CAF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

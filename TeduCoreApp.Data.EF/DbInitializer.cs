@@ -78,17 +78,20 @@ namespace TeduCoreApp.Data.EF
             {
                 _context.Functions.AddRange(new List<Function>()
                 {
-                 new Function() {Id = "SYSTEM", Name = "System",ParentId = null,SortOrder = 1,Status = Status.Active,URL = "/",IconCss = "fa-desktop"  },
-                    new Function() {Id = "ROLE", Name = "Role",ParentId = "SYSTEM",SortOrder = 1,Status = Status.Active,URL = "/admin/role/index",IconCss = "fa-home"  },
+                    new Function() {Id = "HOME", Name = "Trang chủ",ParentId = null,SortOrder = 0,Status = Status.Active,URL = "/",IconCss = "fa-desktop"  },
+                    new Function() {Id = "DASHBOARD", Name = "Biểu đồ thống kê",ParentId = "HOME",SortOrder = 1,Status = Status.Active,URL = "/admin/home",IconCss = "fa-dashboard"  },
 
-                    new Function() {Id = "USER", Name = "User",ParentId = "SYSTEM",SortOrder =3,Status = Status.Active,URL = "/admin/user/index",IconCss = "fa-home"  },
+                 new Function() {Id = "SYSTEM", Name = "Hệ thống",ParentId = null,SortOrder = 1,Status = Status.Active,URL = "/",IconCss = "fa-desktop"  },
+                    new Function() {Id = "ROLE", Name = "Quyền",ParentId = "SYSTEM",SortOrder = 1,Status = Status.Active,URL = "/admin/role/index",IconCss = "fa-home"  },
 
-                    new Function() {Id = "PRODUCT",Name = "Product Management",ParentId = null,SortOrder = 2,Status = Status.Active,URL = "/",IconCss = "fa-chevron-down"  },
-                    new Function() {Id = "PRODUCT_CATEGORY",Name = "Category",ParentId = "PRODUCT",SortOrder =1,Status = Status.Active,URL = "/admin/productcategory/index",IconCss = "fa-chevron-down"  },
-                    new Function() {Id = "PRODUCT_LIST",Name = "Product",ParentId = "PRODUCT",SortOrder = 2,Status = Status.Active,URL = "/admin/product/index",IconCss = "fa-chevron-down"  },
-                    new Function() {Id = "BILL",Name = "Bill",ParentId = "PRODUCT",SortOrder = 3,Status = Status.Active,URL = "/admin/bill/index",IconCss = "fa-chevron-down"  },
-                   new Function() {Id = "AUTHOR",Name = "Author",ParentId = "PRODUCT",SortOrder = 4,Status = Status.Active,URL = "/admin/author/index",IconCss = "fa-user"  },
-                   new Function() {Id = "PUBLISHER",Name = "Publisher",ParentId = "PRODUCT",SortOrder = 5,Status = Status.Active,URL = "/admin/publisher/index",IconCss = "fa-user"  },
+                    new Function() {Id = "USER", Name = "Người dùng",ParentId = "SYSTEM",SortOrder =3,Status = Status.Active,URL = "/admin/user/index",IconCss = "fa-home"  },
+
+                    new Function() {Id = "PRODUCT",Name = "Quản lý sản phẩm",ParentId = null,SortOrder = 2,Status = Status.Active,URL = "/",IconCss = "fa-chevron-down"  },
+                    new Function() {Id = "PRODUCT_CATEGORY",Name = "Thể loại",ParentId = "PRODUCT",SortOrder =1,Status = Status.Active,URL = "/admin/productcategory/index",IconCss = "fa-chevron-down"  },
+                    new Function() {Id = "PRODUCT_LIST",Name = "Sản phẩm",ParentId = "PRODUCT",SortOrder = 2,Status = Status.Active,URL = "/admin/product/index",IconCss = "fa-chevron-down"  },
+                    new Function() {Id = "BILL",Name = "Hóa đơn",ParentId = "PRODUCT",SortOrder = 3,Status = Status.Active,URL = "/admin/bill/index",IconCss = "fa-chevron-down"  },
+                   new Function() {Id = "AUTHOR",Name = "Tác giả",ParentId = "PRODUCT",SortOrder = 4,Status = Status.Active,URL = "/admin/author/index",IconCss = "fa-user"  },
+                   new Function() {Id = "PUBLISHER",Name = "Nhà xuất bản",ParentId = "PRODUCT",SortOrder = 5,Status = Status.Active,URL = "/admin/publisher/index",IconCss = "fa-user"  },
                 });
             }
 

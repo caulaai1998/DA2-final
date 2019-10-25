@@ -18,4 +18,4 @@ BEGIN
 END
 
 EXEC dbo.GetRevenueDaily @fromDate = '12/01/2017',
-                         @toDate = '10/22/2019' 
+                         @toDate = '10/24/2019' 
