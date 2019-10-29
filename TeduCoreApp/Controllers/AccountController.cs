@@ -251,7 +251,7 @@ namespace TeduCoreApp.Controllers
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
-                    await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
+                 //   await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
                     //prevent automatically signin by comment out the following line:
                     //await _signInManager.SignInAsync(user, isPersistent: false);

@@ -13,11 +13,13 @@ namespace TeduCoreApp.Areas.Admin.Controllers
     {
         private readonly IReportService _reportService;
         private readonly IUserReportService _userReportService;
+        private readonly IProductReportService _productReportService;
 
-        public HomeController(IReportService reportService,IUserReportService userReportService)
+        public HomeController(IReportService reportService,IUserReportService userReportService, IProductReportService productReportService)
         {
             _reportService = reportService;
             _userReportService = userReportService;
+            _productReportService = productReportService;
         }
 
         public IActionResult Index()
@@ -35,6 +37,10 @@ namespace TeduCoreApp.Areas.Admin.Controllers
         public async Task<IActionResult> GetNewUser(string fromDate, string toDate)
         {
             return new OkObjectResult(await _userReportService.GetReport(fromDate, toDate));
+        }
+        public async Task<IActionResult> GetNewProduct(string fromDate, string toDate)
+        {
+            return new OkObjectResult(await _productReportService.GetProductReport(fromDate, toDate));
         }
     }
 }
