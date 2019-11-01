@@ -18,7 +18,7 @@ namespace TeduCoreApp.Data.Entities
             ProductTags = new List<ProductTag>();
         }
 
-        public Product(string name, int categoryId, int authorId, int publisherId, string Image,
+        public Product(string name, int categoryId, string Image,
             decimal price, decimal originalPrice, decimal? promotionPrice,
             string description, string content, bool? homeFlag, bool? hotFlag,
             string tags, string unit, Status status, string seoPageTitle,
@@ -30,8 +30,6 @@ namespace TeduCoreApp.Data.Entities
             this.Image = Image;
             Price = price;
             OriginalPrice = originalPrice;
-            AuthorId = authorId;
-            PublisherId = publisherId;
             PromotionPrice = promotionPrice;
             Description = description;
             Content = content;
@@ -49,7 +47,7 @@ namespace TeduCoreApp.Data.Entities
 
         }
 
-        public Product(int id, string name, int categoryId, int authorId, int publisherId, string Image,
+        public Product(int id, string name, int categoryId, string Image,
              decimal price, decimal originalPrice, decimal? promotionPrice,
              string description, string content, bool? homeFlag, bool? hotFlag,
              string tags, string unit, Status status, string seoPageTitle,
@@ -61,8 +59,7 @@ namespace TeduCoreApp.Data.Entities
             CategoryId = categoryId;
             this.Image = Image;
             Price = price;
-            AuthorId = authorId;
-            PublisherId = publisherId;
+           
             OriginalPrice = originalPrice;
             PromotionPrice = promotionPrice;
             Description = description;
@@ -121,17 +118,7 @@ namespace TeduCoreApp.Data.Entities
         public virtual ProductCategory ProductCategory { set; get; }
 
 
-        [Required]
-        public int AuthorId { get; set; }
-
-        [ForeignKey("AuthorId")]
-        public virtual Author Author { get; set; }
-
-        [Required]
-        public int PublisherId { get; set; }
-
-        [ForeignKey("PublisherId")]
-        public virtual Publisher Publisher { get; set; }
+      
 
 
         public virtual ICollection<ProductTag> ProductTags { set; get; }
