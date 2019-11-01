@@ -45,7 +45,7 @@ namespace TeduCoreApp.Application.AutoMapper
 
             CreateMap<BillDetailViewModel, BillDetail>()
               .ConstructUsing(c => new BillDetail(c.Id, c.BillId, c.ProductId,
-              c.Quantity, c.Price, c.ColorId, c.SizeId));
+              c.Quantity, c.Price));
 
 
             CreateMap<ContactViewModel, Contact>()

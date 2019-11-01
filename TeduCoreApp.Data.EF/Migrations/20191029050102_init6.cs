@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace TeduCoreApp.Data.EF.Migrations
 {
-    public partial class init : Migration
+    public partial class init6 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -633,11 +633,9 @@ namespace TeduCoreApp.Data.EF.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     BillId = table.Column<int>(type: "int", nullable: false),
-                    ColorId = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    SizeId = table.Column<int>(type: "int", nullable: false)
+                    Quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -649,21 +647,9 @@ namespace TeduCoreApp.Data.EF.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_BillDetails_Colors_ColorId",
-                        column: x => x.ColorId,
-                        principalTable: "Colors",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_BillDetails_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_BillDetails_Sizes_SizeId",
-                        column: x => x.SizeId,
-                        principalTable: "Sizes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -797,19 +783,9 @@ namespace TeduCoreApp.Data.EF.Migrations
                 column: "BillId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BillDetails_ColorId",
-                table: "BillDetails",
-                column: "ColorId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_BillDetails_ProductId",
                 table: "BillDetails",
                 column: "ProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_BillDetails_SizeId",
-                table: "BillDetails",
-                column: "SizeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Bills_CustomerId",

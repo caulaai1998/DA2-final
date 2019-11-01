@@ -1,16 +1,14 @@
 ﻿var BillController = function () {
     var cachedObj = {
         products: [],
-        colors: [],
-        sizes: [],
+
         paymentMethods: [],
         billStatuses: []
     }
     this.initialize = function () {
         $.when(loadBillStatus(),
             loadPaymentMethod(),
-            loadColors(),
-            loadSizes(),
+       
             loadProducts())
             .done(function () {
                 loadData();
@@ -86,15 +84,13 @@
 
                         $.each(billDetails, function (i, item) {
                             var products = getProductOptions(item.ProductId);
-                            var colors = getColorOptions(item.ColorId);
-                            var sizes = getSizeOptions(item.SizeId);
+                           
 
                             render += Mustache.render(templateDetails,
                                 {
                                     Id: item.Id,
                                     Products: products,
-                                    Colors: colors,
-                                    Sizes: sizes,
+                                 
                                     Quantity: item.Quantity
                                 });
                         });
@@ -130,8 +126,7 @@
                         Id: $(item).data('id'),
                         ProductId: $(item).find('select.ddlProductId').first().val(),
                         Quantity: $(item).find('input.txtQuantity').first().val(),
-                        ColorId: $(item).find('select.ddlColorId').first().val(),
-                        SizeId: $(item).find('select.ddlSizeId').first().val(),
+                      
                         BillId: id
                     });
                 });
@@ -156,7 +151,7 @@
                         tedu.startLoading();
                     },
                     success: function (response) {
-                        tedu.notify('Save order successful', 'success');
+                        tedu.notify('Lưu đơn hàng thành công', 'success');
                         $('#modal-detail').modal('hide');
                         resetFormMaintainance();
 
@@ -164,7 +159,7 @@
                         loadData(true);
                     },
                     error: function () {
-                        tedu.notify('Has an error in progress', 'error');
+                        tedu.notify('Có lỗi !!', 'error');
                         tedu.stopLoading();
                     }
                 });
@@ -176,14 +171,12 @@
         $('#btnAddDetail').on('click', function () {
             var template = $('#template-table-bill-details').html();
             var products = getProductOptions(null);
-            var colors = getColorOptions(null);
-            var sizes = getSizeOptions(null);
+           
             var render = Mustache.render(template,
                 {
                     Id: 0,
                     Products: products,
-                    Colors: colors,
-                    Sizes: sizes,
+               
                     Quantity: 0,
                     Total: 0
                 });

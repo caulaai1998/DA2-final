@@ -19,15 +19,11 @@ namespace TeduCoreApp.Application.ViewModels.Product
 
         public decimal Price { set; get; }
 
-        public int ColorId { get; set; }
-
-        public int SizeId { get; set; }
+     
 
         public BillViewModel Bill { set; get; }
 
         public ProductViewModel Product { set; get; }
-        public ColorViewModel Color { set; get; }
-
-        public SizeViewModel Size { set; get; }
+      
     }
 }

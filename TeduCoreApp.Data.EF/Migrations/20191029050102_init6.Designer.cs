@@ -12,8 +12,8 @@ using TeduCoreApp.Data.Enums;
 namespace TeduCoreApp.Data.EF.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20191024014916_init")]
-    partial class init
+    [Migration("20191029050102_init6")]
+    partial class init6
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -348,25 +348,17 @@ namespace TeduCoreApp.Data.EF.Migrations
 
                     b.Property<int>("BillId");
 
-                    b.Property<int>("ColorId");
-
                     b.Property<decimal>("Price");
 
                     b.Property<int>("ProductId");
 
                     b.Property<int>("Quantity");
 
-                    b.Property<int>("SizeId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("BillId");
 
-                    b.HasIndex("ColorId");
-
                     b.HasIndex("ProductId");
-
-                    b.HasIndex("SizeId");
 
                     b.ToTable("BillDetails");
                 });
@@ -978,19 +970,9 @@ namespace TeduCoreApp.Data.EF.Migrations
                         .HasForeignKey("BillId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("TeduCoreApp.Data.Entities.Color", "Color")
-                        .WithMany()
-                        .HasForeignKey("ColorId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("TeduCoreApp.Data.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("TeduCoreApp.Data.Entities.Size", "Size")
-                        .WithMany()
-                        .HasForeignKey("SizeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

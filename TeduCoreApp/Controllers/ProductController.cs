@@ -76,16 +76,7 @@ namespace TeduCoreApp.Controllers
             model.UpsellProducts = _productService.GetUpsellProducts(6);
             model.ProductImages = _productService.GetImages(id);
             model.Tags = _productService.GetProductTags(id);
-            model.Colors = _billService.GetColors().Select(x => new SelectListItem()
-            {
-                Text = x.Name,
-                Value = x.Id.ToString()
-            }).ToList();
-            model.Sizes = _billService.GetSizes().Select(x => new SelectListItem()
-            {
-                Text = x.Name,
-                Value = x.Id.ToString()
-            }).ToList();
+           
 
             return View(model);
         }

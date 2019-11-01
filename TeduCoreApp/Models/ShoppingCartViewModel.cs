@@ -14,8 +14,6 @@ namespace TeduCoreApp.Models
 
         public decimal Price { set; get; }
 
-        public ColorViewModel Color { get; set; }
-
-        public SizeViewModel Size { get; set; }
+      
     }
 }

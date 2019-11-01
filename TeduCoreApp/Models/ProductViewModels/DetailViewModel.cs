@@ -26,8 +26,6 @@ namespace TeduCoreApp.Models.ProductViewModels
 
         public List<TagViewModel> Tags { set; get; }
 
-        public List<SelectListItem> Colors { set; get; }
-
-        public List<SelectListItem> Sizes { set; get; }
+    
     }
 }

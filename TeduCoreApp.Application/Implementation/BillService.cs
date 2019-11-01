@@ -154,7 +154,7 @@ namespace TeduCoreApp.Application.Implementation
         public List<BillDetailViewModel> GetBillDetails(int billId)
         {
             return _orderDetailRepository
-                .FindAll(x => x.BillId == billId, c => c.Bill, c => c.Color, c => c.Size, c => c.Product)
+                .FindAll(x => x.BillId == billId, c => c.Bill, c => c.Product)
                 .ProjectTo<BillDetailViewModel>().ToList();
         }
 
@@ -173,7 +173,7 @@ namespace TeduCoreApp.Application.Implementation
         public void DeleteDetail(int productId, int billId, int colorId, int sizeId)
         {
             var detail = _orderDetailRepository.FindSingle(x => x.ProductId == productId
-           && x.BillId == billId && x.ColorId == colorId && x.SizeId == sizeId);
+           && x.BillId == billId );
             _orderDetailRepository.Remove(detail);
         }
 

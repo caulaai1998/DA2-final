@@ -24,7 +24,7 @@ namespace TeduCoreApp.Controllers
         IConfiguration _configuration;
         IEmailSender _emailSender;
         public CartController(IProductService productService,
-            IViewRenderService viewRenderService,IEmailSender emailSender,
+            IViewRenderService viewRenderService, IEmailSender emailSender,
             IConfiguration configuration, IBillService billService)
         {
             _productService = productService;
@@ -45,7 +45,7 @@ namespace TeduCoreApp.Controllers
         {
             var model = new CheckoutViewModel();
             var session = HttpContext.Session.Get<List<ShoppingCartViewModel>>(CommonConstants.CartSession);
-            if (session.Any(x => x.Color == null || x.Size == null))
+            if (session.Any(x => x.Quantity == 0))
             {
                 return Redirect("/cart.html");
             }
@@ -71,8 +71,7 @@ namespace TeduCoreApp.Controllers
                         {
                             Product = item.Product,
                             Price = item.Price,
-                            ColorId = item.Color.Id,
-                            SizeId = item.Size.Id,
+
                             Quantity = item.Quantity,
                             ProductId = item.Product.Id
                         });
@@ -143,7 +142,7 @@ namespace TeduCoreApp.Controllers
         /// <param name="quantity"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult AddToCart(int productId, int quantity, int color, int size)
+        public IActionResult AddToCart(int productId, int quantity)
         {
             //Get product detail
             var product = _productService.GetById(productId);
@@ -175,8 +174,7 @@ namespace TeduCoreApp.Controllers
                     {
                         Product = product,
                         Quantity = quantity,
-                        Color = _billService.GetColor(color),
-                        Size = _billService.GetSize(size),
+
                         Price = product.PromotionPrice ?? product.Price
                     });
                     hasChanged = true;
@@ -196,8 +194,7 @@ namespace TeduCoreApp.Controllers
                 {
                     Product = product,
                     Quantity = quantity,
-                    Color = _billService.GetColor(color),
-                    Size = _billService.GetSize(size),
+
                     Price = product.PromotionPrice ?? product.Price
                 });
                 HttpContext.Session.Set(CommonConstants.CartSession, cart);
@@ -240,7 +237,7 @@ namespace TeduCoreApp.Controllers
         /// <param name="productId"></param>
         /// <param name="quantity"></param>
         /// <returns></returns>
-        public IActionResult UpdateCart(int productId, int quantity,int color, int size)
+        public IActionResult UpdateCart(int productId, int quantity)
         {
             var session = HttpContext.Session.Get<List<ShoppingCartViewModel>>(CommonConstants.CartSession);
             if (session != null)
@@ -252,8 +249,7 @@ namespace TeduCoreApp.Controllers
                     {
                         var product = _productService.GetById(productId);
                         item.Product = product;
-                        item.Size = _billService.GetSize(size);
-                        item.Color = _billService.GetColor(color);
+
                         item.Quantity = quantity;
                         item.Price = product.PromotionPrice ?? product.Price;
                         hasChanged = true;
@@ -266,21 +262,8 @@ namespace TeduCoreApp.Controllers
                 return new OkObjectResult(productId);
             }
             return new EmptyResult();
-        }
 
-        [HttpGet]
-        public IActionResult GetColors()
-        {
-            var colors = _billService.GetColors();
-            return new OkObjectResult(colors);
+            #endregion
         }
-
-        [HttpGet]
-        public IActionResult GetSizes()
-        {
-            var sizes = _billService.GetSizes();
-            return new OkObjectResult(sizes);
-        }
-        #endregion
     }
 }
