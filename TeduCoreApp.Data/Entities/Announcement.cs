@@ -14,7 +14,12 @@ namespace TeduCoreApp.Data.Entities
     {
         public Announcement()
         {
-            AnnouncementUsers = new List<AnnouncementUser>();
+        }
+        public Announcement(string title, string content, Status status)
+        {
+            Title = title;
+            Content = content;
+            Status = status;
         }
 
         [Required]
@@ -28,8 +33,7 @@ namespace TeduCoreApp.Data.Entities
 
         [ForeignKey("UserId")]
         public virtual AppUser AppUser { get; set; }
-
-        public virtual ICollection<AnnouncementUser> AnnouncementUsers { get; set; }
+        
         public DateTime DateCreated { set; get; }
         public DateTime DateModified { set; get; }
         public Status Status { set; get; }

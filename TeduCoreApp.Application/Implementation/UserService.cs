@@ -90,7 +90,7 @@ namespace TeduCoreApp.Application.Implementation
 
             return paginationSet;
         }
-
+    
         public async Task<AppUserViewModel> GetById(string id)
         {
             var user = await _userManager.FindByIdAsync(id);

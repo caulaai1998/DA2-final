@@ -14,7 +14,7 @@ namespace TeduCoreApp.Application.Interfaces
         PagedResult<ProductViewModel> GetAllPaging(int? categoryId, string keyword, int page, int pageSize);
 
         ProductViewModel Add(ProductViewModel product);
-
+     
         void Update(ProductViewModel product);
 
         void Delete(int id);
@@ -48,9 +48,5 @@ namespace TeduCoreApp.Application.Interfaces
         List<TagViewModel> GetProductTags(int productId);
 
         bool CheckAvailability(int productId, int size, int color);
-
-        
-
-
     }
 }

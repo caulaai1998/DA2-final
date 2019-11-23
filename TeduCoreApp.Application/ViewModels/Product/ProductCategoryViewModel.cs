@@ -7,7 +7,7 @@ namespace TeduCoreApp.Application.ViewModels.Product
 {
     public class ProductCategoryViewModel
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         public string Name { get; set; }
 
@@ -21,8 +21,8 @@ namespace TeduCoreApp.Application.ViewModels.Product
 
         public bool? HomeFlag { get; set; }
 
-        public DateTime DateCreated { set; get; }
-        public DateTime DateModified { set; get; }
+        public DateTime? DateCreated { set; get; }
+        public DateTime? DateModified { set; get; }
         public int SortOrder { set; get; }
         public Status Status { set; get; }
         public string SeoPageTitle { set; get; }

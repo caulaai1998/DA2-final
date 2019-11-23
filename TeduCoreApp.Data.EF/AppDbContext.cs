@@ -20,6 +20,7 @@ namespace TeduCoreApp.Data.EF
     {
         public AppDbContext(DbContextOptions options) : base(options)
         {
+           
         }
 
         public DbSet<Language> Languages { set; get; }
@@ -29,9 +30,8 @@ namespace TeduCoreApp.Data.EF
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<AppRole> AppRoles { get; set; }
         public DbSet<Announcement> Announcements { set; get; }
-        public DbSet<AnnouncementUser> AnnouncementUsers { set; get; }
 
-        public DbSet<Blog> Bills { set; get; }
+        public DbSet<Bill> Bills { set; get; }
         public DbSet<BillDetail> BillDetails { set; get; }
         public DbSet<Blog> Blogs { set; get; }
         public DbSet<BlogTag> BlogTags { set; get; }
@@ -57,10 +57,7 @@ namespace TeduCoreApp.Data.EF
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<WholePrice> WholePrices { get; set; }
 
-        public DbSet<AdvertistmentPage> AdvertistmentPages { get; set; }
-        public DbSet<Advertistment> Advertistments { get; set; }
-        public DbSet<AdvertistmentPosition> AdvertistmentPositions { get; set; }
-
+       
         protected override void OnModelCreating(ModelBuilder builder)
         {
             #region Identity Config
@@ -88,8 +85,7 @@ namespace TeduCoreApp.Data.EF
             builder.AddConfiguration(new FooterConfiguration());
             builder.AddConfiguration(new ProductTagConfiguration());
             builder.AddConfiguration(new SystemConfigConfiguration());
-            builder.AddConfiguration(new AdvertistmentPositionConfiguration());
-
+          
             //base.OnModelCreating(builder);
         }
 

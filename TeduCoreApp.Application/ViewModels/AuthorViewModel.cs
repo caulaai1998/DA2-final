@@ -8,7 +8,7 @@ namespace TeduCoreApp.Application.ViewModels
 {
     public class AuthorViewModel
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string AuthorName { get; set; }
         public int SortOrder { get; set; }
         public int? ParentId { get; set; }

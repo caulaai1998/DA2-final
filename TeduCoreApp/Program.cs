@@ -16,8 +16,8 @@ namespace TeduCoreApp
     {
         public static void Main(string[] args)
         {
-            var host =  BuildWebHost(args);
-            using(var scope = host.Services.CreateScope())
+            var host = CreateWebHostBuilder(args).Build();
+            using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
 
@@ -35,9 +35,8 @@ namespace TeduCoreApp
             host.Run();
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .Build();
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+      WebHost.CreateDefaultBuilder(args)
+          .UseStartup<Startup>();
     }
 }

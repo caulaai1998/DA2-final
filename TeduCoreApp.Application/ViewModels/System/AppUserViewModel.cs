@@ -24,7 +24,7 @@ namespace TeduCoreApp.Application.ViewModels.System
 
         public string Gender { get; set; }
 
-        public DateTime DateCreated { get; set; }
+        public DateTime? DateCreated { get; set; }
 
         public List<string> Roles { get; set; }
     }
