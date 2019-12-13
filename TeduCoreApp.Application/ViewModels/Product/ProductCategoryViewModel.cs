@@ -7,7 +7,7 @@ namespace TeduCoreApp.Application.ViewModels.Product
 {
     public class ProductCategoryViewModel
     {
-        public int? Id { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
@@ -30,6 +30,6 @@ namespace TeduCoreApp.Application.ViewModels.Product
         public string SeoKeywords { set; get; }
         public string SeoDescription { set; get; }
 
-        public ICollection<ProductViewModel> Products { set; get; }
+        public ICollection<TeduCoreApp.Data.Entities.Product> Products { set; get; }
     }
 }

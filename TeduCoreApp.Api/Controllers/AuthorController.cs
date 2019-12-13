@@ -34,7 +34,7 @@ namespace TeduCoreApp.Api.Controllers
         {
             return new OkObjectResult(_authorService.GetById(id));
         }
-       
+
         [HttpPost]
         public IActionResult SaveEntity(AuthorViewModel authorVm)
         {

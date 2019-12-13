@@ -55,7 +55,7 @@ namespace TeduCoreApp.Application.Implementation
                 string[] tags = productVm.Tags.Split(',');
                 foreach (string t in tags)
                 {
-                    var tagId = TextHelper.ToUnsignString(t);
+                    var tagId = /*TextHelper.ToUnsignString*/(t);
                     if (!_tagRepository.FindAll(x => x.Id == tagId).Any())
                     {
                         Tag tag = new Tag
@@ -203,7 +203,7 @@ namespace TeduCoreApp.Application.Implementation
                 string[] tags = productVm.Tags.Split(',');
                 foreach (string t in tags)
                 {
-                    var tagId = TextHelper.ToUnsignString(t);
+                    var tagId = /*TextHelper.ToUnsignString*/(t);
                     if (!_tagRepository.FindAll(x => x.Id == tagId).Any())
                     {
                         Tag tag = new Tag();

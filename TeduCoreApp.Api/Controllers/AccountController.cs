@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
-using TeduCoreApp.Api.Models;
 using TeduCoreApp.Data.Entities;
+using Microsoft.AspNetCore.Authorization;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using Microsoft.Extensions.Configuration;
+using TeduCoreApp.Api.Models;
+using System;
 
+using Newtonsoft.Json.Linq;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace TeduCoreApp.Api.Controllers
@@ -75,11 +75,56 @@ namespace TeduCoreApp.Api.Controllers
                     signingCredentials: creds);
                 _logger.LogInformation(1, "User logged in.");
 
-                return new OkObjectResult(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
+                var gettoken =new JwtSecurityTokenHandler().WriteToken(token) ;
+                ResponseUser re = new ResponseUser(user, roles.FirstOrDefault(),gettoken);
+                return new JsonResult(re);
             }
             return new BadRequestObjectResult("Login failure");
         }
+        //
+        //[HttpGet]
+        //[AllowAnonymous]
+        //[Route("user/info")]
+        //public async Task<IActionResult> GetUserInfo([FromHeader] string token)
+        //{
+        //    var user = await _userManager.VerifyUserTokenAsync(token);
 
+        //    if (user != null)
+        //    {
+        //        var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false, true);
+        //        if (!result.Succeeded)
+        //        {
+        //            return new BadRequestObjectResult(result.ToString());
+        //        }
+        //        var roles = await _userManager.GetRolesAsync(user);
+        //        var claims = new[]
+        //        {
+        //            new Claim(JwtRegisteredClaimNames.Email, user.Email),
+        //            new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),
+        //            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+        //            new Claim("fullName", user.FullName),
+        //            new Claim("avatar", string.IsNullOrEmpty(user.Avatar)? string.Empty:user.Avatar),
+        //            new Claim("roles", string.Join(";",roles)),
+        //            new Claim("permissions",""),
+        //            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+        //        };
+        //        _logger.LogError(_config["Tokens"]);
+        //        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
+        //        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+        //        var token = new JwtSecurityToken(_config["Tokens:Issuer"],
+        //            _config["Tokens:Issuer"],
+        //            claims,
+        //            expires: DateTime.UtcNow.AddMinutes(30),
+        //            signingCredentials: creds);
+        //        _logger.LogInformation(1, "User logged in.");
+
+        //        return new OkObjectResult(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
+        //    }
+        //    return new BadRequestObjectResult("Login failure");
+        //}
+
+        //
         [HttpPost]
         [AllowAnonymous]
         [Route("register")]

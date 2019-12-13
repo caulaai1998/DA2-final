@@ -23,7 +23,7 @@ namespace TeduCoreApp.Data.Entities
         }
         [Required]
         public Guid RoleId { get; set; }
-        
+
         [Required]
         public string FunctionId { get; set; }
 

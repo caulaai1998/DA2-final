@@ -44,8 +44,7 @@
             },
             dataType: "json",
             beforeSend: function () {
-                tedu.startLoading();
-            },
+                tedu.startLoading(); initNewUserChart
             success: function (response) {
                 initNewUserChart(response);
 

@@ -14,6 +14,7 @@ namespace TeduCoreApp.Data.Entities
     {
         public Announcement()
         {
+
         }
         public Announcement(string title, string content, Status status)
         {
@@ -33,7 +34,7 @@ namespace TeduCoreApp.Data.Entities
 
         [ForeignKey("UserId")]
         public virtual AppUser AppUser { get; set; }
-        
+
         public DateTime DateCreated { set; get; }
         public DateTime DateModified { set; get; }
         public Status Status { set; get; }

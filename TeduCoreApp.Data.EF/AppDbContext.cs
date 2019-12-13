@@ -20,7 +20,7 @@ namespace TeduCoreApp.Data.EF
     {
         public AppDbContext(DbContextOptions options) : base(options)
         {
-           
+
         }
 
         public DbSet<Language> Languages { set; get; }
@@ -57,7 +57,7 @@ namespace TeduCoreApp.Data.EF
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<WholePrice> WholePrices { get; set; }
 
-       
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             #region Identity Config
@@ -85,7 +85,7 @@ namespace TeduCoreApp.Data.EF
             builder.AddConfiguration(new FooterConfiguration());
             builder.AddConfiguration(new ProductTagConfiguration());
             builder.AddConfiguration(new SystemConfigConfiguration());
-          
+
             //base.OnModelCreating(builder);
         }
 

@@ -9,7 +9,7 @@ namespace TeduCoreApp.Application.ViewModels.Product
 {
     public class ProductViewModel
     {
-        public int? Id { get; set; }
+        public int Id { get; set; }
 
         [StringLength(255)]
         [Required]
@@ -52,11 +52,11 @@ namespace TeduCoreApp.Application.ViewModels.Product
         [StringLength(255)]
         public string Unit { get; set; }
 
-        //public  ProductCategoryViewModel ProductCategory { set; get; }
+        public ProductCategoryViewModel ProductCategory { set; get; }
 
-        //public virtual AuthorViewModel Author { set; get; }
+        public virtual AuthorViewModel Author { set; get; }
 
-        //public virtual PublisherViewModel Publisher { get; set; }
+        public virtual PublisherViewModel Publisher { get; set; }
 
         public string SeoPageTitle { set; get; }
 

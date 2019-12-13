@@ -31,10 +31,10 @@ namespace TeduCoreApp.Application.AutoMapper
             .ConstructUsing(c => new Permission(c.RoleId, c.FunctionId, c.CanCreate, c.CanRead, c.CanUpdate, c.CanDelete));
 
             CreateMap<AuthorViewModel, Author>()
-              .ConstructUsing(c => new Author(/*c.Id,*/ c.AuthorName, c.ParentId, c.SortOrder, c.Status));
+              .ConstructUsing(c => new Author(/*c.Id*/ c.AuthorName, c.ParentId, c.SortOrder, c.Status));
 
             CreateMap<PublisherViewModel, Publisher>()
-               .ConstructUsing(c => new Publisher(c.Id, c.NamePublisher, c.ParentId, c.SortOrder, c.Status));
+               .ConstructUsing(c => new Publisher(/*c.Id*/ c.NamePublisher, c.ParentId, c.SortOrder, c.Status));
 
 
 

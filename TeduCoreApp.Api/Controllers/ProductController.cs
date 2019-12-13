@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using TeduCoreApp.Application.Implementation;
 using TeduCoreApp.Application.Interfaces;
 using TeduCoreApp.Application.ViewModels.Product;
 using TeduCoreApp.Utilities.Helpers;
@@ -15,7 +14,6 @@ namespace TeduCoreApp.Api.Controllers
     public class ProductController : ApiController
     {
         IProductService _productService;
-      
         public ProductController(IProductService productService)
         {
             _productService = productService;
@@ -36,7 +34,7 @@ namespace TeduCoreApp.Api.Controllers
         [HttpPost]
         public IActionResult SaveEntity(ProductViewModel productViewModel)
         {
-            productViewModel.SeoAlias = TextHelper.ToUnsignString(productViewModel.Name);
+            productViewModel.SeoAlias = /*TextHelper.ToUnsignString*/(productViewModel.Name);
             if (productViewModel.Id == 0)
             {
                 _productService.Add(productViewModel);
@@ -65,3 +63,4 @@ namespace TeduCoreApp.Api.Controllers
         }
     }
 }
+

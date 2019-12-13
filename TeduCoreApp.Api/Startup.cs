@@ -44,7 +44,7 @@ namespace TeduCoreApp.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(options =>
-                   options.UseSqlServer(Configuration.GetConnectionString("AppDbConnection"),
+                   options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
                        b => b.MigrationsAssembly("TeduCore.Data.EF")));
 
             services.AddIdentity<AppUser, AppRole>()

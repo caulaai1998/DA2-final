@@ -14,7 +14,7 @@ namespace TeduCoreApp.Data.EF.Configurations
         {
             entity.HasKey(c => c.Id);
             entity.Property(c => c.Id).IsRequired()
-             .HasMaxLength(128).IsUnicode(false);
+            .HasMaxLength(128).IsUnicode(false);
             // etc.
         }
     }

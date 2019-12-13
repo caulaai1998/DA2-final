@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TeduCoreApp.Application.Dapper.Interfaces;
 using TeduCoreApp.Extensions;
@@ -38,6 +39,7 @@ namespace TeduCoreApp.Areas.Admin.Controllers
         {
             return new OkObjectResult(await _userReportService.GetReport(fromDate, toDate));
         }
+
         public async Task<IActionResult> GetNewProduct(string fromDate, string toDate)
         {
             return new OkObjectResult(await _productReportService.GetProductReport(fromDate, toDate));

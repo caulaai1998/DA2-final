@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using TeduCoreApp.Application.Interfaces;
 using TeduCoreApp.Application.ViewModels.Product;
-using TeduCoreApp.Data.Entities;
 using TeduCoreApp.Utilities.Helpers;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -29,9 +28,15 @@ namespace TeduCoreApp.Api.Controllers
 
             return new OkObjectResult(_productCategoryService.GetById(id));
         }
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            return new OkObjectResult(_productCategoryService.GetAll());
+        }
 
 
-        [HttpPut]
+
+        [HttpDelete]
         public IActionResult Delete(int id)
         {
             if (id == 0)
@@ -56,7 +61,7 @@ namespace TeduCoreApp.Api.Controllers
             }
             else
             {
-                productVm.SeoAlias = TextHelper.ToUnsignString(productVm.Name);
+                productVm.SeoAlias = /*TextHelper.ToUnsignString*/(productVm.Name);
                 if (productVm.Id == 0)
                 {
                     _productCategoryService.Add(productVm);
@@ -116,3 +121,5 @@ namespace TeduCoreApp.Api.Controllers
         //}
     }
 }
+    
+
